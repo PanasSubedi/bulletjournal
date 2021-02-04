@@ -19,6 +19,7 @@ export const retrieveItem = async(key) => {
 
 export const retrieveBulletsByDate = async(dateStr) => {
   retrieveItem('bullets').then(bullets => {
+    // check by dateStr (consistent date string format)
     dateBullets = bullets.filter(bullet => dateStr in bullet);
     if (dateBullets.length > 0){
       return dateBullets[0];

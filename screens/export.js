@@ -31,6 +31,7 @@ export default function Export(){
   const exportBullets = (bullets, forAPI) => {
     setExporting(true);
 
+    // forAPI is true if user selects "Export to API"
     const exportEndpoint = forAPI ? endpoint : DEFAULT_ENDPOINT;
     fetch(exportEndpoint, {
       method: 'POST',
@@ -88,6 +89,9 @@ export default function Export(){
       const dateKey = (date.getMonth()+1).toString() + date.getDate().toString() + date.getFullYear().toString();
       if (bulletStorageObject !== null && dateKey in bulletStorageObject){
         exportBullets(bulletStorageObject[dateKey], forAPI);
+      }
+      else {
+        alert('No Bullets for the selected date');
       }
     })
   }
