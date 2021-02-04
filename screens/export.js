@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Linking, Alert, Button } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Linking, Alert, Button, TextInput } from 'react-native';
 
 import { MaterialIcons } from '@expo/vector-icons';
 import Card from '../shared/card';
@@ -8,10 +8,13 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { retrieveItem } from '../helpers/storage';
 
+const DEFAULT_ENDPOINT = 'https://us-central1-inner-magpie-287105.cloudfunctions.net/downloadJSON';
+
 export default function Export(){
 
   const [exporting, setExporting] = useState(false);
   const [exportText, setExportText] = useState('Export');
+  const [endpoint, setEndpoint] = useState('');
 
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -27,7 +30,9 @@ export default function Export(){
 
   const exportBullets = (bullets, forAPI) => {
     setExporting(true);
-    fetch('https://us-central1-inner-magpie-287105.cloudfunctions.net/downloadJSON', {
+
+    const exportEndpoint = forAPI ? endpoint : DEFAULT_ENDPOINT;
+    fetch(exportEndpoint, {
       method: 'POST',
       headers: {
         'Content-type': 'application/json'
@@ -66,6 +71,7 @@ export default function Export(){
       }
     ).catch(
       error => {
+        alert('Could not export bullets. Please check if the endpoint you have specified is correct.');
         setExporting(false);
       }
     )
@@ -112,6 +118,15 @@ export default function Export(){
             />
           </TouchableOpacity>
         </View>
+      </Card>
+
+      <Card>
+        <TextInput
+          style={{width:'100%', borderWidth:1, borderColor:'#ddd', padding:10, fontSize:16, borderRadius:6}}
+          placeholder='POST Endpoint to export'
+          onChangeText={value => setEndpoint(value)}
+          value={endpoint}
+        />
       </Card>
 
       <Card>
