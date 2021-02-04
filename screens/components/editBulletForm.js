@@ -15,7 +15,7 @@ export default function editBulletForm({ bulletObject, handleButtonPress, addEdi
 
   return (
     <View style={styles.container}>
-      <Text style={styles.formTitle}>{addEditText} Form</Text>
+      <Text style={styles.formTitle}>{addEditText} Bullet</Text>
       <TextInput
         multiline
         style={styles.input}

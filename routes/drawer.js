@@ -4,7 +4,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 
 import HomeScreen from '../screens/home';
-//import ExportImport from './exportImport';
+import Export from '../screens/export';
 
 import Header from '../shared/header';
 
@@ -31,7 +31,7 @@ export default function Navigator() {
         initialRouteName="Bullet Journal"
       >
         <Drawer.Screen name="Bullet Journal"component={HomeScreen} />
-        //<Drawer.Screen name="Export Import"component={ExportImport} />
+        <Drawer.Screen name="Export Bullets"component={Export} />
       </Drawer.Navigator>
     </NavigationContainer>
   )
